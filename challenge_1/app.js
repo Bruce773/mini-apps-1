@@ -19,31 +19,29 @@ var state = {
   },
 };
 
-// const table = document.getElementsByTagName('table')
 window.onload = () => {
-  // console.log(document.getElementsByTagName('td').length);
   var tableDataElements = document.getElementsByTagName('td');
 
   for (var i = 0; i < tableDataElements.length; i++) {
     var currentItem = document.getElementsByTagName('td').item(i);
     currentItem.addEventListener('click', (element) => {
-      // console.log(element.srcElement);
       if (peice === 'X') {
         peice = 'O';
       } else {
         peice = 'X';
       }
       var id = element.srcElement.id;
-      // var coords = [state.coordinates[id][0]][state.coordinates[id][1]];
       element.srcElement.innerHTML = `<span>${peice}</span>`;
       state.board[state.coordinates[id][0]][state.coordinates[id][1]] = peice;
-      console.log(state.board);
+      // console.log(state.board);
 
       for (var i = 0; i < state.board.length; i++) {
         checkForColumnWin(i);
         checkForRowWin(i);
         checkForTie();
       }
+
+      checkForDiagonalWin();
 
       element.srcElement.removeEventListener('click', () => {});
     });
@@ -55,10 +53,6 @@ window.onload = () => {
       state.board[1][column] === 'X' &&
       state.board[2][column] === 'X'
     ) {
-      console.log(
-        'X wins!!',
-        document.getElementsByClassName('main')[0].innerHTML
-      );
       document.getElementsByClassName('main')[0].innerHTML =
         '<h1 style="color:green;">X wins!</h1>';
       return null;
@@ -67,7 +61,6 @@ window.onload = () => {
       state.board[1][column] === 'O' &&
       state.board[2][column] === 'O'
     ) {
-      console.log('O wins!!!');
       document.getElementsByClassName('main')[0].innerHTML =
         '<h1 style="color:green;">O wins!</h1>';
       return null;
@@ -80,7 +73,6 @@ window.onload = () => {
       state.board[row][1] === 'X' &&
       state.board[row][2] === 'X'
     ) {
-      console.log('X wins!!');
       document.getElementsByClassName('main')[0].innerHTML =
         '<h1 style="color:green;">X wins!</h1>';
       return null;
@@ -89,7 +81,6 @@ window.onload = () => {
       state.board[row][1] === 'O' &&
       state.board[row][2] === 'O'
     ) {
-      console.log('O wins!!');
       document.getElementsByClassName('main')[0].innerHTML =
         '<h1 style="color:green;">O wins!</h1>';
       return null;
@@ -108,9 +99,44 @@ window.onload = () => {
     });
 
     if (counter === 9) {
-      console.log('Tie!');
       document.getElementsByClassName('main')[0].innerHTML =
         '<h1 style="color:green;">Tie!</h1>';
+      return null;
+    }
+  };
+
+  var checkForDiagonalWin = () => {
+    if (
+      state.board[0][0] === 'X' &&
+      state.board[1][1] === 'X' &&
+      state.board[2][2] === 'X'
+    ) {
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">X wins!</h1>';
+      return null;
+    } else if (
+      state.board[0][0] === 'O' &&
+      state.board[1][1] === 'O' &&
+      state.board[2][2] === 'O'
+    ) {
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">O wins!</h1>';
+      return null;
+    } else if (
+      state.board[0][2] === 'X' &&
+      state.board[1][1] === 'X' &&
+      state.board[2][0] === 'X'
+    ) {
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">X wins!</h1>';
+      return null;
+    } else if (
+      state.board[0][2] === 'O' &&
+      state.board[1][1] === 'O' &&
+      state.board[2][0] === 'O'
+    ) {
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">O wins!</h1>';
       return null;
     }
   };
