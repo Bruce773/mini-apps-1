@@ -2,7 +2,7 @@
 // Use the array of arrays as the state... when the array is updated, the board in the DOM should also be updated
 
 console.log('Script running!');
-var peice = 'O';
+// var peice = 'O';
 
 var state = {
   board: [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']],
@@ -23,15 +23,20 @@ window.onload = () => {
   var tableDataElements = document.getElementsByTagName('td');
 
   for (var i = 0; i < tableDataElements.length; i++) {
+    var peice = 'O';
     var currentItem = document.getElementsByTagName('td').item(i);
     currentItem.addEventListener('click', (element) => {
+      var id = element.srcElement.id;
+      var color;
       if (peice === 'X') {
         peice = 'O';
+        color = 'grey';
       } else {
         peice = 'X';
+        color = 'green';
       }
-      var id = element.srcElement.id;
-      element.srcElement.innerHTML = `<span>${peice}</span>`;
+      element.srcElement.style.backgroundColor = color;
+      element.srcElement.innerHTML = `<span style="font-size:30px;">${peice}</span>`;
       state.board[state.coordinates[id][0]][state.coordinates[id][1]] = peice;
       // console.log(state.board);
 
@@ -54,7 +59,7 @@ window.onload = () => {
       state.board[2][column] === 'X'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">X wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">X wins!</h1>';
       return null;
     } else if (
       state.board[0][column] === 'O' &&
@@ -62,7 +67,7 @@ window.onload = () => {
       state.board[2][column] === 'O'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">O wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">O wins!</h1>';
       return null;
     }
   };
@@ -74,7 +79,7 @@ window.onload = () => {
       state.board[row][2] === 'X'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">X wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">X wins!</h1>';
       return null;
     } else if (
       state.board[row][0] === 'O' &&
@@ -82,7 +87,7 @@ window.onload = () => {
       state.board[row][2] === 'O'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">O wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">O wins!</h1>';
       return null;
     }
   };
@@ -100,7 +105,7 @@ window.onload = () => {
 
     if (counter === 9) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">Tie!</h1>';
+        '<h1 class="end-of-game" style="color:green;">Tie!</h1>';
       return null;
     }
   };
@@ -112,7 +117,7 @@ window.onload = () => {
       state.board[2][2] === 'X'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">X wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">X wins!</h1>';
       return null;
     } else if (
       state.board[0][0] === 'O' &&
@@ -120,7 +125,7 @@ window.onload = () => {
       state.board[2][2] === 'O'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">O wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">O wins!</h1>';
       return null;
     } else if (
       state.board[0][2] === 'X' &&
@@ -128,7 +133,7 @@ window.onload = () => {
       state.board[2][0] === 'X'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">X wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">X wins!</h1>';
       return null;
     } else if (
       state.board[0][2] === 'O' &&
@@ -136,7 +141,7 @@ window.onload = () => {
       state.board[2][0] === 'O'
     ) {
       document.getElementsByClassName('main')[0].innerHTML =
-        '<h1 style="color:green;">O wins!</h1>';
+        '<h1 class="end-of-game" style="color:green;">O wins!</h1>';
       return null;
     }
   };
