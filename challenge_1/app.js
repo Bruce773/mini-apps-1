@@ -39,8 +39,10 @@ window.onload = () => {
       state.board[state.coordinates[id][0]][state.coordinates[id][1]] = peice;
       console.log(state.board);
 
-      for(var i = 0; i < state.board.length; i++){
+      for (var i = 0; i < state.board.length; i++) {
         checkForColumnWin(i);
+        checkForRowWin(i);
+        checkForTie();
       }
 
       element.srcElement.removeEventListener('click', () => {});
@@ -53,16 +55,63 @@ window.onload = () => {
       state.board[1][column] === 'X' &&
       state.board[2][column] === 'X'
     ) {
-      console.log('X wins!!');
-      document.getElementsByClassName('main').innerHTML = '<h1>X wins!</h1>'
+      console.log(
+        'X wins!!',
+        document.getElementsByClassName('main')[0].innerHTML
+      );
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">X wins!</h1>';
+      return null;
     } else if (
       state.board[0][column] === 'O' &&
       state.board[1][column] === 'O' &&
       state.board[2][column] === 'O'
     ) {
       console.log('O wins!!!');
-      document.getElementsByClassName('main').innerHTML = '<h1>O wins!</h1>'
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">O wins!</h1>';
+      return null;
     }
   };
 
+  var checkForRowWin = (row) => {
+    if (
+      state.board[row][0] === 'X' &&
+      state.board[row][1] === 'X' &&
+      state.board[row][2] === 'X'
+    ) {
+      console.log('X wins!!');
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">X wins!</h1>';
+      return null;
+    } else if (
+      state.board[row][0] === 'O' &&
+      state.board[row][1] === 'O' &&
+      state.board[row][2] === 'O'
+    ) {
+      console.log('O wins!!');
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">O wins!</h1>';
+      return null;
+    }
+  };
+
+  var checkForTie = () => {
+    var counter = 0;
+
+    state.board.forEach((item) => {
+      item.forEach((innerItem) => {
+        if (innerItem !== ' ') {
+          counter++;
+        }
+      });
+    });
+
+    if (counter === 9) {
+      console.log('Tie!');
+      document.getElementsByClassName('main')[0].innerHTML =
+        '<h1 style="color:green;">Tie!</h1>';
+      return null;
+    }
+  };
 };
