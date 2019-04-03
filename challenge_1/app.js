@@ -4,8 +4,29 @@
 console.log('Script running!');
 // var peice = 'O';
 
+var boardHTML = `
+  <table style="width: 50%; height: 50%;">
+    <tr>
+      <td id="1"></td>
+      <td id="2"></td>
+      <td id="3"></td>
+    </tr>
+    <tr>
+      <td id="4"></td>
+      <td id="5"></td>
+      <td id="6"></td>
+    </tr>
+    <tr>
+      <td id="7"></td>
+      <td id="8"></td>
+      <td id="9"></td>
+    </tr>
+  </table>
+`;
+
 var state = {
   board: [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']],
+  // boardOriginal: [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']],
   coordinates: {
     '1': [0, 0],
     '2': [0, 1],
@@ -21,36 +42,53 @@ var state = {
 
 window.onload = () => {
   var tableDataElements = document.getElementsByTagName('td');
+  document.getElementsByClassName('main')[0].innerHTML = boardHTML;
 
-  for (var i = 0; i < tableDataElements.length; i++) {
-    var peice = 'O';
-    var currentItem = document.getElementsByTagName('td').item(i);
-    currentItem.addEventListener('click', (element) => {
-      var id = element.srcElement.id;
-      var color;
-      if (peice === 'X') {
-        peice = 'O';
-        color = 'grey';
-      } else {
-        peice = 'X';
-        color = 'green';
-      }
-      element.srcElement.style.backgroundColor = color;
-      element.srcElement.innerHTML = `<span style="font-size:30px;">${peice}</span>`;
-      state.board[state.coordinates[id][0]][state.coordinates[id][1]] = peice;
-      // console.log(state.board);
+  var addEventListeners = () => {
+    for (var i = 0; i < tableDataElements.length; i++) {
+      var peice = 'O';
+      var currentItem = document.getElementsByTagName('td').item(i);
+      currentItem.addEventListener('click', (element) => {
+        var id = element.srcElement.id;
+        var color;
+        if (peice === 'X') {
+          peice = 'O';
+          color = 'grey';
+        } else {
+          peice = 'X';
+          color = 'green';
+        }
+        element.srcElement.style.backgroundColor = color;
+        element.srcElement.innerHTML = `<span style="font-size:30px;">${peice}</span>`;
+        state.board[state.coordinates[id][0]][state.coordinates[id][1]] = peice;
+        // console.log(state.board);
 
+        for (var i = 0; i < state.board.length; i++) {
+          checkForColumnWin(i);
+          checkForRowWin(i);
+          checkForTie();
+        }
+
+        checkForDiagonalWin();
+
+        // element.srcElement.removeEventListener('click', () => {});
+      });
+    }
+  };
+
+  addEventListeners();
+
+  // Reset btn scripts
+  document
+    .getElementsByClassName('new-game')[0]
+    .addEventListener('click', () => {
+      document.getElementsByClassName('main')[0].innerHTML = boardHTML;
+      // state.board = state.boardOriginal;
+      addEventListeners();
       for (var i = 0; i < state.board.length; i++) {
-        checkForColumnWin(i);
-        checkForRowWin(i);
-        checkForTie();
+        state.board[i] = [' ', ' ', ' '];
       }
-
-      checkForDiagonalWin();
-
-      element.srcElement.removeEventListener('click', () => {});
     });
-  }
 
   var checkForColumnWin = (column) => {
     if (

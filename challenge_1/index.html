@@ -24,28 +24,24 @@
       .end-of-game {
         font-size: 220px;
       }
+      .new-game {
+        border-radius: 10px;
+        width: 150px;
+        height: 40px;
+        font-size: 22px;
+        margin-bottom: 15px;
+        background-color: white;
+      }
+      .new-game:hover {
+        background-color: rgb(204, 204, 204);
+        cursor: pointer;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <h1 style="font-size: 50px;">Tic Tac Toe</h1>
-    <div class="main">
-      <table style="width: 50%; height: 50%;">
-        <tr>
-          <td id="1"></td>
-          <td id="2"></td>
-          <td id="3"></td>
-        </tr>
-        <tr>
-          <td id="4"></td>
-          <td id="5"></td>
-          <td id="6"></td>
-        </tr>
-        <tr>
-          <td id="7"></td>
-          <td id="8"></td>
-          <td id="9"></td>
-        </tr>
-      </table>
-    </div>
+    <button class="new-game">New Game</button>
+    <div class="main"></div>
   </body>
 </html>
