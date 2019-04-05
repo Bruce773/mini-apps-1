@@ -31,11 +31,27 @@ app.post('/', (req, res) => {
     .split(':')
     .join(' ');
   var columns = Object.keys(JSON.parse(req.body.jsonData));
+  var counter = 0;
 
   columns.forEach((column) => {
-    console.log(column);
     dataString = dataString.split(`${column}`).join(' ');
   });
+
+  dataString = dataString
+    .split(' ')
+    .map((item, index) => {
+      if (item === ',') {
+        counter++;
+        if (counter === columns.length) {
+          counter = 0;
+          return (dataString[index + 1] = '\n');
+        }
+      }
+      return item;
+    })
+    .join('');
+
+  console.log(dataString);
 
   res.render('results', {
     columns: columns,

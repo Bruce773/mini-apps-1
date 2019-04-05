@@ -4,9 +4,12 @@
   <body>
     <form method="post">
       <input name="jsonData" type="text" />
+      <!-- <input name="jsonData" type="file" /> -->
       <input type="submit" value="Submit" />
     </form>
-    <%= columns %> <br />
-    <%= data %>
+    <%= columns %>
+    <div style="white-space:pre-wrap;">
+      <%- data %>
+    </div>
   </body>
 </html>
