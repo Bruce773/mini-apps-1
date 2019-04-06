@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const multer = require('multer');
+const multer = require('multer'); // Files API
 var upload = multer({ dest: `${path.join(`${__dirname}/uploads/`)}` });
 var fs = require('fs');
 var Promise = require('bluebird');
@@ -21,7 +21,6 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 app.post('/', upload.single('jsonData'), (req, res) => {
   readFile(`${path.join(`${__dirname}/uploads/${req.file.filename}`)}`).then(
     (data) => {
-      console.log('!!!!', JSON.parse(data));
       var fileContent = JSON.parse(data);
       var dataString = JSON.stringify(fileContent)
         .split('\\')
@@ -59,12 +58,11 @@ app.post('/', upload.single('jsonData'), (req, res) => {
         })
         .join('');
 
-      console.log(dataString);
-
       res.render('results', {
         columns: columns,
         data: dataString,
       });
+      console.log('Success!');
     }
   );
 });

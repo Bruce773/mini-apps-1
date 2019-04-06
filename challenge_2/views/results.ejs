@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <style>
+      body {
+        text-align: center;
+      }
+      .file-input {
+        display: none;
+      }
+      .file-label {
+        background-color: grey;
+        color: white;
+        border-radius: 10px;
+        width: 20px;
+        height: 25px;
+        padding: 10px;
+        font-size: 20px;
+        margin: 10px;
+        margin-top: 20px;
+      }
+      .file-label:hover {
+        cursor: pointer;
+        background-color: lightgray;
+        color: rgb(0, 157, 255);
+        font-weight: bolder;
+      }
+    </style>
+  </head>
   <body>
-    <form method="post" enctype="multipart/form-data">
-      <!-- <input name="jsonData" type="text" /> -->
-      <input name="jsonData" type="file"  />
-      <input type="submit" value="Submit" />
-    </form>
-    <%= columns %>
+    <div style="margin-top: 40px;">
+      <form method="post" enctype="multipart/form-data">
+        <!-- <input name="jsonData" type="text" /> -->
+        <label for="file" class="file-label">Choose a file</label>
+        <input id="file" class="file-input" name="jsonData" type="file" />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <div style="margin-top: 20px;">
+      <%= columns %>
+    </div>
     <div style="white-space:pre-wrap;">
       <%- data %>
     </div>
