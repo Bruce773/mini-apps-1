@@ -58,7 +58,13 @@ class App extends React.Component {
   }
 
   nextForm() {
-    this.state.form < 4 ? this.state.form++ : (this.state.form = 1);
+    this.state.form < 4
+      ? this.setState((state) => {
+          return { form: state.form + 1 };
+        })
+      : this.setState(() => {
+          return { form: 1 };
+        });
   }
 
   render() {
