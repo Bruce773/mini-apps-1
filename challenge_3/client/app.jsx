@@ -91,6 +91,7 @@ class App extends React.Component {
     return (
       <div>
         <div style={{ display: homeDisplay }}>
+          <h1>Home Page for an App Currently Not Doing Anything</h1>
           <button
             className="checkout-button"
             style={{
@@ -110,6 +111,7 @@ class App extends React.Component {
           </button>
         </div>
         <div style={{ display: formsDisplay }}>
+          <h1>Checkout</h1>
           <form
             method="post"
             className="form"
@@ -124,9 +126,17 @@ class App extends React.Component {
               style={{
                 padding: '10px 26px',
                 marginTop: '22px',
-                backgroundColor: 'rgb(127, 123, 119)',
-                color: 'white',
+                backgroundColor: this.state.hover
+                  ? 'rgb(127, 123, 119)'
+                  : '#fe9439eb',
+                color: this.state.hover ? 'white' : 'rgb(127, 123, 119)',
+                fontWeight: this.state.hover ? 'normal' : 'bold',
+                borderColor: 'rgb(127, 123, 119)',
+                borderWidth: 'medium',
+                cursor: 'pointer',
               }}
+              onMouseEnter={this.setHover.bind(this)}
+              onMouseLeave={this.setHover.bind(this)}
             />
           </form>
         </div>
