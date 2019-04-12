@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="app.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
     <style>
       body {
         text-align: center;
+      }
+      .form {
+        background-color: #fe9439eb;
+        width: 30%;
+        margin: auto;
+        padding: 20px;
+        border-radius: 15px;
+      }
+      .form-label {
+        font-size: 30px;
+        color: white;
+        font-weight: bold;
+      }
+      input {
+        font-size: 25px;
       }
     </style>
   </head>
   <body>
     <h1>Home Page for an App Currently Not Doing Anything</h1>
-    <div class="app"></div>
+    <div id="app"></div>
+    <script src="app.js"></script>
   </body>
 </html>
