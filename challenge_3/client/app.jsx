@@ -1,43 +1,130 @@
 var Form1 = (props) => (
   <div>
     <div className="form-label">First Name: </div>
-    <input name="firstname" type="text" />
+    <input
+      onChange={props.onInputChange}
+      // onChange={console.log(event)}
+      value={props.state.firstname === undefined ? '' : props.state.firstname}
+      name="firstname"
+      type="text"
+    />
     <div className="form-label">Last Name: </div>
-    <input name="lastname" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.lastname === undefined ? '' : props.state.lastname}
+      name="lastname"
+      type="text"
+    />
     <div className="form-label">Email: </div>
-    <input name="email" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.email === undefined ? '' : props.state.email}
+      name="email"
+      type="text"
+    />
     <div className="form-label">Password: </div>
-    <input name="password" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.password === undefined ? '' : props.state.password}
+      name="password"
+      type="text"
+    />
   </div>
 );
 
 var Form2 = (props) => (
   <div>
     <div className="form-label">Line #1: </div>
-    <input name="line-1" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state['line-1'] === undefined ? '' : props.state['line-1']}
+      name="line-1"
+      type="text"
+    />
     <div className="form-label">Line #2: </div>
-    <input name="line-2" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state['line-2'] === undefined ? '' : props.state['line-2']}
+      name="line-2"
+      type="text"
+    />
     <div className="form-label">City: </div>
-    <input name="city" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.city === undefined ? '' : props.state.city}
+      name="city"
+      type="text"
+    />
     <div className="form-label">State: </div>
-    <input name="state" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.state === undefined ? '' : props.state.state}
+      name="state"
+      type="text"
+    />
     <div className="form-label">Zip Code: </div>
-    <input name="zipcode" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.zipcode === undefined ? '' : props.state.zipcode}
+      name="zipcode"
+      type="text"
+    />
     <div className="form-label">Phone Number: </div>
-    <input name="phone-number" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={
+        props.state['phone-number'] === undefined
+          ? ' '
+          : props.state['phone-number']
+      }
+      name="phone-number"
+      type="text"
+    />
   </div>
 );
 
 var Form3 = (props) => (
   <div>
     <div className="form-label">Card Number: </div>
-    <input name="card-number" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={
+        props.state['card-number'] === undefined
+          ? ''
+          : props.state['card-number']
+      }
+      name="card-number"
+      type="text"
+    />
     <div className="form-label">Expiration Date: </div>
-    <input name="expiration-date" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={
+        props.state['expiration-date'] === undefined
+          ? ''
+          : props.state['expiration-date']
+      }
+      name="expiration-date"
+      type="text"
+    />
     <div className="form-label">CVV: </div>
-    <input name="cvv" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={props.state.cvv === undefined ? '' : props.state.cvv}
+      name="cvv"
+      type="text"
+    />
     <div className="form-label">Billing Zip Code: </div>
-    <input name="billing-zip-code" type="text" />
+    <input
+      onChange={props.onInputChange}
+      value={
+        props.state['billing-zip-code'] === undefined
+          ? ''
+          : props.state['billing-zip-code']
+      }
+      name="billing-zip-code"
+      type="text"
+    />
   </div>
 );
 
@@ -54,9 +141,14 @@ class App extends React.Component {
       '2': Form2,
       '3': Form3,
     };
+
+    this.setHover = this.setHover.bind(this);
+    this.showForms = this.showForms.bind(this);
+    this.nextForm = this.nextForm.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
-  nextForm() {
+  nextForm(event) {
     this.state.form <= 2
       ? this.setState((state) => {
           return { form: state.form + 1 };
@@ -64,6 +156,17 @@ class App extends React.Component {
       : this.setState(() => {
           return { formsVisible: false };
         });
+    event.preventDefault();
+  }
+
+  onInputChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState(() => ({
+      [name]: value,
+    }));
+    event.target.value = this.state[event.target.name];
+    console.log(this.state);
   }
 
   showForms() {
@@ -103,9 +206,9 @@ class App extends React.Component {
               borderWidth: 'medium',
               cursor: 'pointer',
             }}
-            onMouseEnter={this.setHover.bind(this)}
-            onMouseLeave={this.setHover.bind(this)}
-            onClick={this.showForms.bind(this)}
+            onMouseEnter={this.setHover}
+            onMouseLeave={this.setHover}
+            onClick={this.showForms}
           >
             Checkout
           </button>
@@ -116,12 +219,12 @@ class App extends React.Component {
             method="post"
             className="form"
             action="/"
-            onSubmit={this.nextForm.bind(this)}
+            onSubmit={this.nextForm}
           >
-            <Component />
+            <Component state={this.state} onInputChange={this.onInputChange} />
             <input
               type="submit"
-              // onClick={this.nextForm.bind(this)}
+              // onClick={this.nextForm}
               value="Next"
               style={{
                 padding: '10px 26px',
@@ -135,8 +238,8 @@ class App extends React.Component {
                 borderWidth: 'medium',
                 cursor: 'pointer',
               }}
-              onMouseEnter={this.setHover.bind(this)}
-              onMouseLeave={this.setHover.bind(this)}
+              onMouseEnter={this.setHover}
+              onMouseLeave={this.setHover}
             />
           </form>
         </div>
